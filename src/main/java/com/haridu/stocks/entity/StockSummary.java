@@ -2,6 +2,8 @@ package com.haridu.stocks.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+
 public class StockSummary {
 
     @JsonProperty("highest_price")
