@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 public class Stock {
@@ -15,7 +16,7 @@ public class Stock {
     private String symbol;
     private double price;
     private int volume;
-    private Date date;
+    private Timestamp date;
 
     public int getId() {
         return id;
@@ -49,11 +50,11 @@ public class Stock {
         this.volume = volume;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }

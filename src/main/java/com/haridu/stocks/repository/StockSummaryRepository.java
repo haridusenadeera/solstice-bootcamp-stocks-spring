@@ -12,7 +12,7 @@ import java.sql.Date;
 public interface StockSummaryRepository extends JpaRepository<Stock, Long> {
 
     @Query("SELECT MAX(stock.price) AS highestPrice, MIN(stock.price) AS lowestPrice, SUM(stock.volume) AS totalVolume "
-            + "FROM Stock stock WHERE stock.symbol = ?1 AND stock.date = ?2")
+            + "FROM Stock stock WHERE stock.symbol = ?1 AND date(stock.date) = ?2")
     StockSummary stockSummaryByDay(String company, Date date);
 }
 
