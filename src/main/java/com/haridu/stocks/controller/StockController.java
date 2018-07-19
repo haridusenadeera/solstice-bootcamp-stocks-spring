@@ -4,6 +4,7 @@ import com.haridu.stocks.StockSummary;
 import com.haridu.stocks.entity.Stock;
 import com.haridu.stocks.repository.StockRepository;
 import com.haridu.stocks.repository.StockSummaryRepository;
+import com.haridu.stocks.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,24 +15,19 @@ import java.sql.Date;
 public class StockController {
 
     @Autowired
-    StockRepository stockRepository;
-
-    @Autowired
-    StockSummaryRepository stockSummaryRepository;
+    private StockService stockService;
 
     @GetMapping
-    public @ResponseBody Iterable<Stock> getAll(){
-        return stockRepository.findAll();
+    public @ResponseBody Iterable<Stock> getAll() {
+        return stockService.getAllStocks();
     }
 
     @GetMapping("/{company}/{date}")
-    public @ResponseBody StockSummary stockSummary(@PathVariable(value = "company") String company,
-                                                @PathVariable(value = "date") String date){
+    public @ResponseBody StockSummary stockSummary(
+            @PathVariable(value = "company") String company,
+            @PathVariable(value = "date") String date) {
 
-        StockSummary stockSummary = stockSummaryRepository
-                .stockSummaryByDay(company, Date.valueOf(date));
-
-        return stockSummary;
+        return stockService.summaryForDay(company, date);
     }
 
 }

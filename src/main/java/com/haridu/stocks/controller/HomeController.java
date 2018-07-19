@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haridu.stocks.entity.Stock;
 import com.haridu.stocks.repository.StockRepository;
+import com.haridu.stocks.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
@@ -18,29 +19,16 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    StockRepository stockRepository;
+    StockService stockService;
 
     @PostMapping("/load")
-    public @ResponseBody List<Stock> load(){
+    public @ResponseBody String load(){
 
-        ObjectMapper mapper = new ObjectMapper();
-        List<Stock> stockData = null;
-        File file = null;
-        try {
-            file = new ClassPathResource("week2-stocks.json").getFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Iterable<Stock> result = stockService.saveJsonToDatabase();
+
+        if (result != null) {
+            return "Success";
         }
-
-        try {
-            stockData = mapper.readValue(file, new TypeReference<List<Stock>>(){});
-            System.out.println("Reading from input stream completed");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        stockRepository.saveAll(stockData);
-
-        return stockData;
+        return "Failure";
     }
 }
