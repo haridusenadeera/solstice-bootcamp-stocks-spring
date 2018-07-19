@@ -17,6 +17,16 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
+    @PostMapping("/load")
+    public @ResponseBody String load(){
+        Iterable<Stock> result = stockService.saveJsonToDatabase();
+
+        if (result != null) {
+            return "Success";
+        }
+        return "Failure";
+    }
+
     @GetMapping
     public @ResponseBody Iterable<Stock> getAll() {
         return stockService.getAllStocks();
