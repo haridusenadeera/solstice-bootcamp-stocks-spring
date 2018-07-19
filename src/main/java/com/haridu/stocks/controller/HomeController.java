@@ -38,10 +38,8 @@ public class HomeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for (Stock data:stockData){
-            stockRepository.save(data);
-        }
+        
+        stockRepository.saveAll(stockData);
 
         return stockData;
     }
