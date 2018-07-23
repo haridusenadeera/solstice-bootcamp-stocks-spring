@@ -35,7 +35,7 @@ public class QuoteController {
         return "Failure!";
     }
 
-    @GetMapping("/{symbol}")
+    @GetMapping("/symbol/{symbol}")
     public ResponseEntity getQuote(@PathVariable(name = "symbol") String symbol) {
 
         ResponseEntity<Symbol> response = symbolService.getIdforSymbol(symbol);
@@ -46,7 +46,7 @@ public class QuoteController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/{symbol}/{date}")
+    @GetMapping("/symbol/{symbol}/{date}")
     public ResponseEntity getQuoteByDay(@PathVariable (name = "symbol") String symbol,
                                         @PathVariable (name = "date") Date date) {
 

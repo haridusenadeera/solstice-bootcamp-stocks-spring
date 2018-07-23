@@ -13,6 +13,6 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     Iterable<Quote> findAllBySymbol(long symbol);
 
     @Query("SELECT MAX(quote.price) AS highestPrice, MIN(quote.price) AS lowestPrice, SUM(quote.volume) AS totalVolume "
-            + "FROM Quote quote WHERE quote.symbol = ?1 AND date(quote.date) = ?2")
+            + "FROM Quote quote WHERE quote.symbol = ?1 AND quote.date = ?2")
     DailySummary dailySummary(long id, Date date);
 }
