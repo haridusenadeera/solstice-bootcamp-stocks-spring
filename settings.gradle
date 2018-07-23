@@ -1,1 +1,2 @@
-rootProject.name = 'stocks'
+include "applications/quote"
+include "applications/symbol"
