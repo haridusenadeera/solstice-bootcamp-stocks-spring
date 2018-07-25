@@ -39,6 +39,7 @@ public class QuoteController {
     public ResponseEntity getQuote(@PathVariable(name = "symbol") String symbol) {
 
         ResponseEntity<Symbol> response = symbolService.getIdforSymbol(symbol);
+
         if(response.getStatusCode().is2xxSuccessful()){
             Iterable<Quote> quotes= quoteRepository.findAllBySymbol(response.getBody().getId());
             return ResponseEntity.ok().body(quotes);
